@@ -1,0 +1,4 @@
+# defaults file for icinga2-ansible-add-hosts
+
+icinga2_hosts_dir: "/etc/icinga2/zones.d/master/hosts"
+host_address: "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"

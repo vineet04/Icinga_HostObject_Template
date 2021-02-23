@@ -1,0 +1,5 @@
+object Host "{{ hostvars[item]['ansible_fqdn'] }}" {
+  import "generic-host"
+  address = "{{ host_address }}"
+  vars.os = "{{ hostvars[item]['ohai_hostnamectl']['operating_system'] }}"
+}

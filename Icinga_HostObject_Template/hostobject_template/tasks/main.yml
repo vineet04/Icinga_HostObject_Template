@@ -1,0 +1,22 @@
+---
+    - name: Copy Icinga template for RHEL hosts
+      template:
+        src: object_template.j2
+        dest: "/tmp/{{ hostvars[item]['ansible_fqdn'] }}.conf"
+        owner: sinhav
+        group: root
+        mode: 0644
+      loop: "{{ groups['IcingaClients'] }}"
+
+    - name: Fetch file from managed hosts
+      fetch:
+        src: "/tmp/{{ hostvars[item]['ansible_fqdn'] }}.conf"
+        dest: "/tmp/hosts/{{ hostvars[item]['ansible_fqdn'] }}"
+        flat: yes
+      loop: "{{ groups['IcingaClients'] }}"   
+
+    - name: Delete Temp file
+      file:
+        path: "/tmp/{{ hostvars[item]['ansible_fqdn'] }}.conf"
+        state: absent 
+      loop: "{{ groups['IcingaClients'] }}"

@@ -1,0 +1,33 @@
+---
+- name: Icinga Clients Host Object Template
+  hosts: IcingaClients
+  become_user: root
+  become: yes
+  become_method: sudo
+  roles:  
+    - icinga_Client_Template
+
+- name: Update host.conf on Icinga server
+  hosts: localhost
+  become_user: root
+  become: yes
+  become_method: sudo
+ 
+  tasks:
+  - name: Append host.conf
+    command: ./add_hosts.sh
+
+  - name: Delete Temp file
+    file:
+      path: /tmp/hosts
+      state: absent
+
+    notify:
+     - restart icinga2
+
+  handlers:
+    - name: restart icinga2
+      service:
+        name: icinga2
+        state: restarted
+        enabled: yes
