@@ -1,6 +1,6 @@
 # Icinga_HostObject_Template
 
-To add multiple linux clients templates on Icinga server host configuration path  based on Environment (Prod,PreProd,NonProd).
+To add multiple linux clients templates on Icinga server host configuration path  based on Environment (Prod,PreProd,Dev,Test).
 This ansible-playbook contains a jinja2 template that is used to get facts from managed hosts using magic variables -
 
 ```
